@@ -1,0 +1,64 @@
+.TH SCRIPT_C 1 "08 May 2025"
+.SH NAME
+\fBscript.c\fR \- script language & self-build system
+.SH SYNOPSIS
+.
+.IP \fBct\fR 20
+\fBabbreviation:\fR \fICscripts\fR.
+.br
+this declares the start of scripting.
+it can only be used once in the whole project.
+use it only before \fBcte\fR.
+.IP \fBcte\fR 20
+\fBabbreviation:\fR \fICscripts end\fR.
+.br
+this declares the end of scripting.
+it can only be used once in the whole project.
+use it only after \fBct\fR.
+.IP \fBctmd(char\ **\ \fIargs\fB)\fR 20
+\fBabbreviation:\fR \fICscripts/command\fR.
+.br
+runs shell command using the related arguments.
+.br
+.B EXAMPLE:
+.br
+\fB    ctmd(char *[]){\fI"echo"\fB, \fI"hello"\fB, \fI0\fB})\fR
+.IP \fBecho(char\ *\ \fItext\fB)\fR 20
+prints to \fBstdout\fR the text you want to see.
+.br
+just a macros on \fBctmd\fR that uses \fI"echo"\fR as the
+\fBfirst argument\fR and pulls \fItext\fR to the
+second one.
+.IP \fBctfn(\fIx\fB)\fR 20
+\fBabbreviation:\fR \fICscripts function\fR.
+.br
+declares the \fBfunction\fR. you \fImust use
+\fBctfne()\fR at the end.
+.IP \fBctfne(\fIx\fB)\fR 20
+\fBabbreviation:\fR \fICscripts function end\fR.
+.br
+declares the end of \fBfunction\fR.
+.IP \fBctrfn(\fIx\fB)\fR 20
+\fBabbreviation:\fR \fICscripts run function\fR.
+.br
+runs a \fBfunction\fB you want.
+.
+.SH DESCRIPTION
+.
+scriptc is a minimalistic language for scripts
+and also cool self\-build system for your
+projects.
+
+\fB    cc script.c \-Dbuild \-o \fIscriptname\fR
+
+run this command if you starting your script
+at first time. then you just need to run:
+
+\fB    ./\fIscriptname\fR
+
+and it will \fIrebuild itself\fR. you can \fIchange
+build command\fR using \fBctsbc()\fR function.
+.
+.SH EXAMPLES
+TODO
+
