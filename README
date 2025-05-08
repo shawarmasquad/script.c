@@ -1,0 +1,21 @@
+NAME
+     script.c - script language & self-build system
+
+SYNOPSIS
+     TODO
+
+DESCRIPTION
+     scriptc is a minimalistic language for scripts
+     and also cool self-build system for your
+     projects.
+
+         $ cc script.c -Dbuild -o scriptname
+
+     run this command if you starting your script
+     at first time. then you just need to run:
+
+         $ ./scriptname
+
+     and its will rebuild itself. you can change
+     build command using ctsbc() function.
+
