@@ -8,7 +8,14 @@
 #include <sys/unistd.h>
 #define ct int _ct(int args, char ** argv) {
 #define cte return 0; }
-#define __CT_REBUILD ctmd((char *[]){"tcc", "main.c", "-o", "main", "-I.", "-g", 0})
+
+#ifndef SCRIPT
+#  define SCRIPT "main.c"
+#endif
+#ifndef SRC_BUILD
+#  define SRC_BUILD "./main"
+#endif
+#define __CT_REBUILD ctmd((char *[]){"tcc", SCRIPT, "-o", SRC_BUILD, "-I.", "-g", 0})
 
 #define ctr(...) int \
 main (int args, char ** argv) \
@@ -50,7 +57,7 @@ x##_end:
 #ifdef build
 int main() {
   __CT_REBUILD;
-  ctmd((char *[]){"./main", 0})
+  ctmd((char *[]){SRC_BUILD, 0})
   return 0;
 }
 #endif
