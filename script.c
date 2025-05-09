@@ -6,14 +6,13 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 #include <sys/unistd.h>
-#define ct int _ct() {
+#define ct int _ct(int args, char ** argv) {
 #define cte return 0; }
 #define __CT_REBUILD ctmd((char *[]){"tcc", "main.c", "-o", "main", "-I.", "-g", 0})
 
 #define ctr(...) int \
-main () \
+main (int args, char ** argv) \
 { \
-  __CT_REBUILD; \
   __VA_ARGS__ \
 }
 
@@ -46,7 +45,7 @@ int _ctmd(char ** args) {
 #define ctfne(x) goto x##_end;
 #define ctrfn(x) goto x;\
 x##_end:
-
+#define ctrs(...) ctmd(__VA_ARGS__) exit(0);
 
 #ifdef build
 int main() {
@@ -58,8 +57,8 @@ int main() {
 
 
 #ifndef build
-int _ct();
-ctr(_ct();)
+int _ct(int args, char ** argv);
+ctr(_ct(args,argv);)
 #endif
 
 #endif // SCRIPT_H__

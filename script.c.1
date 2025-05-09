@@ -1,4 +1,4 @@
-.TH SCRIPT_C 1 "08 May 2025"
+.TH SCRIPT_C 1 "08 May 2025" "Adisteyf" "script.c documentation"
 .SH NAME
 \fBscript.c\fR \- script language & self-build system
 .SH SYNOPSIS
@@ -42,6 +42,11 @@ declares the end of \fBfunction\fR.
 \fBabbreviation:\fR \fICscripts run function\fR.
 .br
 runs a \fBfunction\fB you want.
+.IP \fBctrs(\fIx\fB)\fR 20
+\fBabbreviation:\fR \fICscripts restart\fR.
+.br
+just a macros on \fBctmd()\fR but after it runs
+\fBexit(0)\fR.
 .
 .SH DESCRIPTION
 .
@@ -60,5 +65,15 @@ and it will \fIrebuild itself\fR. you can \fIchange
 build command\fR using \fBctsbc()\fR function.
 .
 .SH EXAMPLES
-TODO
+example how you can make \fIscript\fR that rebuilds
+itself:
 
+.nf
+    \fBct
+    if (\fIargs\fB > \fI1\fB && \fI0\fB!=strcmp(\fIargv[1]\fB, \fI"--ct-no-rebuild"\fB)) {
+      ctmd((char *[]){\fR"tcc"\fB, \fR"main.c"\fB, \fR"-o"\fB, \fR"main"\fB, \fR"-I."\fB, \fR"-g"\fB, \fR0\fB})
+      ctrs((char *[]){\fR"./main"\fB, \fR"--ct-no-rebuild"\fB, \fR0\fB})
+    }
+    \fR...\fB
+    cte\fR
+.fi
