@@ -6,14 +6,22 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 #include <sys/unistd.h>
-#define ct int _ct() {
+#define ct int _ct(int args, char ** argv) {
 #define cte return 0; }
-#define __CT_REBUILD ctmd((char *[]){"tcc", "main.c", "-o", "main", "-I.", "-g", 0})
+
+#ifndef SCRIPT
+#  define SCRIPT "main.c"
+#endif
+#ifndef SRC_BUILD
+#  define SRC_BUILD "./main"
+#endif
+#ifndef __CT_REBUILD
+#  define __CT_REBUILD ctmd((char *[]){"tcc", SCRIPT, "-o", SRC_BUILD, "-I.", "-g", 0})
+#endif
 
 #define ctr(...) int \
-main () \
+main (int args, char ** argv) \
 { \
-  __CT_REBUILD; \
   __VA_ARGS__ \
 }
 
@@ -46,20 +54,20 @@ int _ctmd(char ** args) {
 #define ctfne(x) goto x##_end;
 #define ctrfn(x) goto x;\
 x##_end:
-
+#define ctrs(...) ctmd(__VA_ARGS__) exit(0);
 
 #ifdef build
 int main() {
   __CT_REBUILD;
-  ctmd((char *[]){"./main", 0})
+  ctmd((char *[]){SRC_BUILD, 0})
   return 0;
 }
 #endif
 
 
 #ifndef build
-int _ct();
-ctr(_ct();)
+int _ct(int args, char ** argv);
+ctr(_ct(args,argv);)
 #endif
 
 #endif // SCRIPT_H__
