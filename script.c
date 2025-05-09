@@ -15,7 +15,9 @@
 #ifndef SRC_BUILD
 #  define SRC_BUILD "./main"
 #endif
-#define __CT_REBUILD ctmd((char *[]){"tcc", SCRIPT, "-o", SRC_BUILD, "-I.", "-g", 0})
+#ifndef __CT_REBUILD
+#  define __CT_REBUILD ctmd((char *[]){"tcc", SCRIPT, "-o", SRC_BUILD, "-I.", "-g", 0})
+#endif
 
 #define ctr(...) int \
 main (int args, char ** argv) \

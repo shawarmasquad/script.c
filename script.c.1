@@ -54,7 +54,7 @@ scriptc is a minimalistic language for scripts
 and also cool self\-build system for your
 projects.
 
-\fB    cc script.c \-Dbuild \-o \fIscriptname\fR
+\fB    cc script.c \-Dbuild \-DSCRIPT=\fI\\"scriptname.c\\"\fB \-DSCR_BUILD=\fI\\"./scriptname\\"\fB \-o \fIscriptname\fR
 
 run this command if you starting your script
 at first time. then you just need to run:
@@ -71,9 +71,10 @@ itself:
 .nf
     \fBct
     if (\fIargs\fB > \fI1\fB && \fI0\fB!=strcmp(\fIargv[1]\fB, \fI"--ct-no-rebuild"\fB)) {
-      ctmd((char *[]){\fR"tcc"\fB, \fR"main.c"\fB, \fR"-o"\fB, \fR"main"\fB, \fR"-I."\fB, \fR"-g"\fB, \fR0\fB})
-      ctrs((char *[]){\fR"./main"\fB, \fR"--ct-no-rebuild"\fB, \fR0\fB})
+      ctmd((char *[]){\fR"tcc"\fB, \fRSCRIPT\fB, \fR"-o"\fB, \fRSRC_BUILD\fB, \fR"-I."\fB, \fR"-g"\fB, \fR0\fB})
+      ctrs((char *[]){\fRSCR_BUILD\fB, \fR"--ct-no-rebuild"\fB, \fR0\fB})
     }
     \fR...\fB
     cte\fR
 .fi
+
